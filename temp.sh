@@ -24,14 +24,14 @@ cputemp=$(echo "scale=0; $cputempmilli / 1000" | bc)
 if [[ "$cputemp" > 60 ]]; then
 
         #Log an alert if cpu temperature is over 60, hopefully never needed
-        echo "[$(date +%d-%m-%Y) $(date +%H:%M:%S)][alert] temp.sh called: CPU temperature at $cputempfloat TOO HOT!" >> /var/log/pineapple.log
+        echo -e "[$(date +%d-%m-%Y) $(date +%H:%M:%S)][\e[31mALERT\e[0m] temp.sh called: CPU temperature at \e[31m$cputempfloat\e[0m TOO HOT!" >> /var/log/pineapple.log
 
 elif [[ "$cputemp" < 61 ]]; then
 
         #Log the cpu temperature, everything working within expected parameters
-        echo "[$(date +%d-%m-%Y) $(date +%H:%M:%S)][ok] temp.sh called: CPU temperature at $cputempfloat" >> /var/log/pineapple.log
+        echo -e "[$(date +%d-%m-%Y) $(date +%H:%M:%S)][\e[32mok\e[0m] temp.sh called: CPU temperature at $cputempfloat" >> /var/log/pineapple.log
 
 else
         #If anything doesnt go as expected, e.g. temperature not readable
-        echo "[$(date +%d-%m-%Y) $(date +%H:%M:%S)][warning] temp.sh called: CPU temperature could not be measured." >> /var/log/pineapple.log
+        echo -e "[$(date +%d-%m-%Y) $(date +%H:%M:%S)][\e[33mwarning\e[0m] temp.sh called: CPU temperature could not be measured." >> /var/log/pineapple.log
 fi
